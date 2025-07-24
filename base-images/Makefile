@@ -1,5 +1,5 @@
 ifndef COMPONENTS
-  COMPONENTS=go-base go-builder postgres redis
+  COMPONENTS=go-base go-builder postgres redis local_sqs
 endif
 
 all: build
