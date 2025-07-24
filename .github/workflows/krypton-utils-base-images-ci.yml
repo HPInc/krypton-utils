@@ -1,5 +1,9 @@
 name: CI for Krypton common docker base images
-on: [push]
+on:
+  push:
+    paths:
+      - 'base-images/**'
+      - '.github/workflows/krypton-utils-base-images-ci.yml'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
