@@ -1,5 +1,6 @@
 ifndef COMPONENTS
-  COMPONENTS=go-base go-builder postgres redis local_sqs
+  COMPONENTS=krypton-go-base krypton-go-builder krypton-db krypton-cache \
+	     krypton-local-sqs krypton-local-storage
 endif
 
 all: build
