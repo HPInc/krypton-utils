@@ -1,0 +1,71 @@
+default_profile: "local"
+profiles:
+# used in ci runs
+  - name: "ci"
+    server:
+      addresses:
+        api: "http://gw.local.test"
+        default: "http://gw.local.test"
+    auth:
+      token_type: "azuread"
+      mgmt_server: "hpcem"
+
+  - name: "prod"
+    server:
+      addresses:
+        api: "https://devices.api.hp.com"
+        iot: "tls://a3slc996n98ta4-ats.iot.us-west-2.amazonaws.com:443"
+        auth: "https://usdevms.adminx.hppipeline.com"
+        default: "https://devices.api.hp.com"
+    auth:
+      token_type: "hpbp"
+      mgmt_server: "hpconnect"
+
+  - name: "aws"
+    proxy:
+      http_proxy: "http://web-proxy.austin.hpicorp.net:8080"
+      https_proxy: "http://web-proxy.austin.hpicorp.net:8080"
+    server:
+      addresses:
+        api: "https://krypton.corp.hpicloud.net"
+        iot: "tls://a3slc996n98ta4-ats.iot.us-west-2.amazonaws.com:443"
+        auth: "https://usdevms.adminx.hppipeline.com"
+        default: "https://krypton.corp.hpicloud.net"
+    auth:
+      token_type: "hpbp"
+      mgmt_server: "hpcem"
+
+  - name: "api"
+    proxy:
+      http_proxy: "http://web-proxy.austin.hpicorp.net:8080"
+      https_proxy: "http://web-proxy.austin.hpicorp.net:8080"
+    server:
+      addresses:
+        api: "https://test.devices.api.hp.com"
+        iot: "tls://a3slc996n98ta4-ats.iot.us-west-2.amazonaws.com:443"
+        auth: "https://usdevms.adminx.hppipeline.com"
+        default: "https://test.devices.api.hp.com"
+    auth:
+      token_type: "hpbp"
+      mgmt_server: "hpcem"
+
+# local runs might not always have a gateway
+# this means servers can be brought up as localhost endpoints
+  - name: "local"
+    server:
+      addresses:
+        es: "http://localhost:7979"
+        dsts: "http://localhost:7001"
+        auth: "http://localhost:9090"
+        fs: "http://localhost:1234"
+        fds: "http://localhost:4567"
+    auth:
+      token_type: "azuread"
+      mgmt_server: "hpcem"
+
+# test data that are signatures for av test
+# encrypted so that we dont inadvertently trigger filters
+encrypted_test_data:
+  av_test_eicar:
+    data: "59139daebbce6c3b76d6a2b951850ecb3cd6a046b3588cb898b6f3fa4841652ba95533403394eaae68eb5a9de55568977126d8dfb132ca5f2045fd66bfeaf02a35e61137a85b59975ed21d3b32847576ac8ab427"
+    key: "6368616e676520746869732070617373"
