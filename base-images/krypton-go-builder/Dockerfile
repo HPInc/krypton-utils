@@ -1,6 +1,6 @@
-FROM golang:1.24.4-alpine3.22 AS stage
+FROM golang:1.25.1-alpine3.22 AS stage
 
-ENV PROTOBUF_URL=https://github.com/protocolbuffers/protobuf/releases/download/v31.1/protoc-31.1-linux-x86_64.zip
+ENV PROTOBUF_URL=https://github.com/protocolbuffers/protobuf/releases/download/v32.1/protoc-32.1-linux-x86_64.zip
 RUN apk add curl && \
     curl -sLo /tmp/protobuf.zip ${PROTOBUF_URL} && \
     unzip /tmp/protobuf.zip -d /tmp && \
@@ -9,7 +9,7 @@ RUN apk add curl && \
     go install github.com/securego/gosec/v2/cmd/gosec@latest
 
 ## final
-FROM golang:1.24.4-alpine3.22
+FROM golang:1.25.1-alpine3.22
 RUN apk add --no-cache git alpine-sdk gcompat brotli-dev \
     coreutils openssl curl jq bash shellcheck
 COPY --from=stage /go/bin/protoc-gen-go /usr/local/bin
